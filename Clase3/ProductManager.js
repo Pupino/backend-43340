@@ -44,10 +44,7 @@ class ProductManager {
       id: this.#generateId(), //product id
     };
     this.products = [...this.products, newProduct];
-    //convert array to string in order to persist data into file
-    const productsString = JSON.stringify(this.products);
-    fs.writeFileSync(this.path, productsString);
-    return console.log(`Product code ${code} successfully added!`);
+    this.handleFile('I', code);
   }
   getProducts() {
     //returns array with all created products
@@ -75,10 +72,7 @@ class ProductManager {
       this.products[prodObjToUpdate].thumbnail = prodObj.thumbnail;
       //this.products[prodObjToUpdate].code = prodObj.code; //this property can't be updated, act as id
       this.products[prodObjToUpdate].stock = prodObj.stock;
-      //convert array to string in order to persist modified data into file
-      const productsString = JSON.stringify(this.products);
-      fs.writeFileSync(this.path, productsString);
-      return console.log(`Product id ${id} successfully updated!`);
+      this.handleFile('U', id);
     } else {
       return console.error(
         `ERROR: Product id ${id} doesn't exists to be updated`
@@ -92,14 +86,27 @@ class ProductManager {
     if (prodObjToDelete != -1) {
       //if object was found remove it
       this.products.splice(prodObjToDelete, 1);
-      //convert array to string in order to persist modified data into file
-      const productsString = JSON.stringify(this.products);
-      fs.writeFileSync(this.path, productsString);
-      return console.log(`Product id ${id} successfully deleted!`);
+      this.handleFile('D', id);
     } else {
       return console.error(
         `ERROR: Product id ${id} doesn't exists to be deleted`
       );
+    }
+  }
+
+  async handleFile(operation, key) {
+    //convert array to string in order to persist data into file
+    const productsString = JSON.stringify(this.products);
+    await fs.promises.writeFile(this.path, productsString);
+    switch (operation) {
+      case 'I': //insert
+        return console.log(`Product code ${key} successfully added!`);
+      case 'U': //update
+        return console.log(`Product id ${key} successfully updated!`);
+      case 'D': //delete
+        return console.log(`Product id ${key} successfully deleted!`);
+      default:
+        return console.error('ERROR on handleFile function');
     }
   }
 }

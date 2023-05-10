@@ -28,12 +28,10 @@ class ProductManager {
       return console.log(`Error: All fields are mandatory.`);
     }
     //code must be unique
-    for (let index = 0; index < this.products.length; index++) {
-      const prodCode = this.products[index].code;
-      if (prodCode === code) {
-        return console.log(`Error: product code ${code} already exists.`);
-      }
+    if (this.products.some((product) => product.code === code)) {
+      return console.log(`Error: Product code ${code} already exists.`);
     }
+
     let newProduct = {
       title, //product name
       description, //product description
@@ -44,7 +42,6 @@ class ProductManager {
       id: this.#generateId(), //product id
     };
     this.products = [...this.products, newProduct];
-    this.handleFile('I', code);
   }
   getProducts() {
     //returns array with all created products
@@ -72,7 +69,6 @@ class ProductManager {
       this.products[prodObjToUpdate].thumbnail = prodObj.thumbnail;
       //this.products[prodObjToUpdate].code = prodObj.code; //this property can't be updated, act as id
       this.products[prodObjToUpdate].stock = prodObj.stock;
-      this.handleFile('U', id);
     } else {
       return console.error(
         `ERROR: Product id ${id} doesn't exists to be updated`
@@ -86,7 +82,6 @@ class ProductManager {
     if (prodObjToDelete != -1) {
       //if object was found remove it
       this.products.splice(prodObjToDelete, 1);
-      this.handleFile('D', id);
     } else {
       return console.error(
         `ERROR: Product id ${id} doesn't exists to be deleted`
@@ -94,20 +89,11 @@ class ProductManager {
     }
   }
 
-  async handleFile(operation, key) {
+  async handleFile() {
     //convert array to string in order to persist data into file
     const productsString = JSON.stringify(this.products);
     await fs.promises.writeFile(this.path, productsString);
-    switch (operation) {
-      case 'I': //insert
-        return console.log(`Product code ${key} successfully added!`);
-      case 'U': //update
-        return console.log(`Product id ${key} successfully updated!`);
-      case 'D': //delete
-        return console.log(`Product id ${key} successfully deleted!`);
-      default:
-        return console.error('ERROR on handleFile function');
-    }
+    console.log('File saved on server!');
   }
 }
 //TESTING CODE
@@ -161,3 +147,7 @@ store.updateProduct(2029, {
 store.deleteProduct(1);
 //remove product with wrong id
 store.deleteProduct(555);
+//add new product
+store.addProduct('Grisi', 'Test', 9999999, 'Sin imagen', 'grs10', 1);
+//persist data once program finished
+store.handleFile();

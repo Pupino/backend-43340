@@ -13,32 +13,26 @@ const store = new ProductManager();
 //por queryparam se recibira limite de resultados ?limit=
 //ejemplo: /products/?limit=2
 //si no se recibe devolver todos los resultados
-app.get('/products', (req, res) => {
+app.get('/products', async (req, res) => {
   const limit = req.query.limit;
-  async function getProducts() {
-    const rta = await store.getProducts(limit);
-    return res.status(rta.code).json({
-      status: rta.status,
-      message: rta.message,
-    });
-  }
-  getProducts();
+  const rta = await store.getProducts(limit);
+  return res.status(rta.code).json({
+    status: rta.status,
+    message: rta.message,
+  });
 });
 
 ///products/:pid
 //recibe por req.params el id y devuelve el producto solicitado
-app.get('/products/:pid', (req, res) => {
+app.get('/products/:pid', async (req, res) => {
   const pid = req.params.pid;
-  async function getProductById() {
-    const rta = await store.getProductById(pid);
-    return res.status(rta.code).json({
-      status: rta.status,
-      message: rta.message,
-    });
-  }
-  getProductById();
+  const rta = await store.getProductById(pid);
+  return res.status(rta.code).json({
+    status: rta.status,
+    message: rta.message,
+  });
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });

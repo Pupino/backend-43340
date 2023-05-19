@@ -1,0 +1,46 @@
+[
+  {
+    "id": 2,
+    "title": "Product B",
+    "description": "Test 18 May",
+    "code": "grs30",
+    "price": 743,
+    "stock": 4,
+    "category": "AB",
+    "thumbnails": ["/img/sample1.png", "/img/sample2.png", "/img/sample3.png"],
+    "status": true
+  },
+  {
+    "id": 3,
+    "title": "Product C",
+    "description": "Lorem Ipsum",
+    "code": "grs40",
+    "price": 99,
+    "stock": 65,
+    "category": "AA",
+    "thumbnails": ["/img/nice1.png", "/img/nice2.png"],
+    "status": true
+  },
+  {
+    "id": 4,
+    "title": "Product AZ",
+    "description": "jajaja",
+    "code": "grs10",
+    "price": 14800,
+    "stock": 5,
+    "category": "DD",
+    "thumbnails": ["/img/nice1.png"],
+    "status": true
+  },
+  {
+    "id": 5,
+    "title": "Product 50",
+    "description": "Lorem lorem lorem",
+    "code": "grs50",
+    "price": 22,
+    "stock": 50,
+    "category": "DE",
+    "thumbnails": ["/img/gris11.png", "/img/gris12.png"],
+    "status": true
+  }
+]

@@ -1,0 +1,14 @@
+<div>
+    <strong>Products</strong>
+    <ol class="alternating-colors">
+        {{#each products}}
+        <li>
+            <strong>{{this.title}}</strong>
+            <p>{{this.description}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+        </li>
+        {{/each}}
+    </ol>
+</div>

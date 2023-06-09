@@ -1,0 +1,13 @@
+<div>
+  <h1>Bienvenid@ <span id='span-email'></span> al chat comunitario!</h1>
+
+  <h3>Listado de msgs:</h3>
+  <div id='div-msgs' style='border: 1px solid red;margin-bottom: 20px;'>
+    Loading...
+  </div>
+  <input id='input-msg' type='text' value='' placeholder='Ingrese algo..' />
+
+</div>
+<script src='/socket.io/socket.io.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script src='/js/chat-socket.js'></script>

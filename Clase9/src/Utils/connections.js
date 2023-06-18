@@ -2,7 +2,7 @@ import { connect } from 'mongoose';
 export async function connectMongo() {
   try {
     await connect(
-      'mongodb+srv://rominajalon:ForhO1BiAqRF1ujv@cluster0.rpahgl8.mongodb.net/ecommerce?retryWrites=true&w=majority'
+      'mongodb+srv://rominajalon:<pswd>@cluster0.rpahgl8.mongodb.net/ecommerce?retryWrites=true&w=majority'
     );
     console.log('plug to mongo!');
   } catch (e) {

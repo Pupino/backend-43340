@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Product A",
+    "description": "Desc Prod A",
+    "code": "UYS",
+    "price": "90",
+    "stock": "2",
+    "category": "RE",
+    "status": true
+  },
+  {
+    "title": "Product B",
+    "description": "Desc Prod B",
+    "code": "FSS",
+    "price": "830",
+    "stock": "8",
+    "category": "RT",
+    "status": true
+  }
+]

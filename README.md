@@ -16,7 +16,7 @@ http://localhost:8080/products
 
 http://localhost:8080/realtimeproducts
 
-## Clase 12
+## Clase 13
 
 Urls to check:
 

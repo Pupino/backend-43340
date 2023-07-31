@@ -1,5 +1,6 @@
 import passport from 'passport';
 import express from 'express';
+import { sessionController } from '../controllers/sessions.controller.js';
 export const sessionsRouter = express.Router();
 
 sessionsRouter.get(
@@ -10,14 +11,7 @@ sessionsRouter.get(
 sessionsRouter.get(
   '/githubcallback',
   passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    req.session.user = req.user;
-    console.log('callback github');
-    // Successful authentication, redirect home.
-    res.redirect('/api/products');
-  }
+  sessionController.getGitHubCallback
 );
 
-sessionsRouter.get('/current', (req, res) => {
-  return res.send(JSON.stringify(req.session));
-});
+sessionsRouter.get('/current', sessionController.getCurrentSession);

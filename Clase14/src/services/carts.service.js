@@ -13,9 +13,11 @@ class CartService {
 
   async getProductsByCartId(id) {
     //returns products array belong to cart id
+    console.log('cart id: ' + id);
     const products = await CartModel.findById(id).populate(
       'productsArray.prodId'
     );
+    console.log('line 20: ' + JSON.stringify(products));
     return products;
   }
 

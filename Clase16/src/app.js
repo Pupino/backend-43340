@@ -1,5 +1,7 @@
 //@ts-check
 import express from 'express';
+import nodemailer from 'nodemailer';
+import twilio from 'twilio';
 import cors from 'cors';
 import session from 'express-session';
 import handlebars from 'express-handlebars';
@@ -15,6 +17,7 @@ import { routerVistaChatSocket } from './routes/chat-socket.router.js';
 import { iniPassport } from './config/passport.config.js';
 import { sessionsRouter } from './routes/sessions.router.js';
 import { authRouter } from './routes/auth.router.js';
+import userRouter from './routes/users.router.js';
 import { __dirname } from './config.js';
 import { Server } from 'socket.io';
 import { connectMongo } from './Utils/connections.js';
@@ -44,9 +47,6 @@ app.use(cors());
 
 //http://expressjs.com/en/resources/middleware/session.html --> session-file-store A file system-based session store.
 //https://www.npmjs.com/package/session-file-store
-//var session = require('express-session');
-//var FileStore = require('session-file-store')(session);
-//var fileStoreOptions = {};
 if ((entorno.PERSISTENCE = 'MONGO')) {
   app.use(
     session({
@@ -96,6 +96,48 @@ app.use('/api/auth', authRouter);
 //app.use('/realtimeproducts', routerViewRealTimeProducts);
 app.use('/vista/chat-socket', routerVistaChatSocket);
 
+///////////////////////////////
+//Setteo para envio de mail
+const transport = nodemailer.createTransport({
+  service: 'gmail',
+  port: 587,
+  auth: { user: entorno.GOOGLE_EMAIL, pass: entorno.GOOGLE_PASS },
+});
+
+app.get('/mail', async (req, res) => {
+  console.log('entro a mail');
+  let result = await transport.sendMail({
+    from: 'romina.jalon@gmail.com',
+    to: 'romina.jalon@gmail.com',
+    subject: 'Surfing =)',
+    html: '<div><h1>Así surfean los pro! </h1><img src="cid:SurfKangaroo" /></div>',
+    attachments: [
+      {
+        filename: 'SurfKangaroo.jpg',
+        path: __dirname + '/images/SurfKangaroo.jpg',
+        cid: 'SurfKangaroo',
+      },
+    ],
+  });
+  console.log(`Result: ${result}`);
+  res.send('Email sent');
+});
+///////////////////////////////
+//Seteo Twilio
+const client = twilio(entorno.TWILIO_ACCOUNT_SID, entorno.TWILIO_AUTH_TOKEN);
+
+app.get('/sms', async (req, res) => {
+  const result = await client.messages.create({
+    body: 'Holissss desde node.js!',
+    from: entorno.TWILIO_PHONE_NUMBER,
+    to: '+5491159596922',
+  });
+
+  console.log(`Result: ${result}`);
+  res.send('SMS sent');
+});
+///////////////////////////////
+
 app.use('/', viewsRouter);
 // app.get('/session', (req, res) => {
 //   if (req.session.counter) {
@@ -113,6 +155,9 @@ app.use('/', viewsRouter);
 //     else res.send({ status: 'Logout ERROR', body: err });
 //   });
 // });
+
+//Faker
+app.use('/api/users', userRouter);
 
 app.get('/complex', (req, res) => {
   const child = fork('./src/pro2.js');

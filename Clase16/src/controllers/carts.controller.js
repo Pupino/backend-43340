@@ -86,9 +86,10 @@ class CartsController {
       //console.log(`cartExist ${cart}`);
       if (typeof cart === 'object' && Object.keys(cart).length === 0) {
         //si el cart vuelve vacio es q no tiene uno el usuario, hay q crearselo
-        console.log('Line 72');
-        cart = await cartService.addCart(uid);
+        const newCart = await cartService.addCart(uid);
+        cart.push(newCart);
       }
+      console.log(`cart DTO: ${JSON.stringify(cart)}`);
       cart = new CartDTO(cart);
       console.log('cart after DTO: ' + JSON.stringify(cart));
       return res.status(200).json({
@@ -237,6 +238,7 @@ class CartsController {
           );
           productsOk.push({
             prodId: product.prodId._id,
+            //prodObjIdOnCart: product._id, //to be removed then from cart: productsCart._id
             quantity: product.quantity,
             unitPrice: productInfo.price,
             totalPrice: product.quantity * productInfo.price,
@@ -254,18 +256,27 @@ class CartsController {
       console.log(`productsOk: ${JSON.stringify(productsOk)}`);
       console.log(`productsNoStock: ${JSON.stringify(productsNoStock)}`);
       //2) generar el ticket de compra con los productos que si se descontaron del stock
-      //ticketService pasar el array productsOk con más datos necesarios
-      let ticketObj = { amount: totalAmount, purchaser: 'bobbi2022@gmail.com' };
-      const ticketCreated = await ticketService.createTicket(ticketObj);
-      //3) si hubieron productos sin stock, devolverlos en un array
-      //devolver productsNoStock
-      //4) una vez finalizada la compra, el carrito asociado al usuario solo debera contener los productos que no pudieron comprarse
-      return res.status(200).json({
-        status: 'success',
-        msg: 'Products situation are:',
-        products: { toBePurchased: productsOk, withNoStock: productsNoStock },
-        ticket: ticketCreated,
-      });
+      if (productsOk && productsOk.length) {
+        let ticketObj = { amount: totalAmount, purchaser: req.user.email };
+        const ticketCreated = await ticketService.createTicket(ticketObj);
+        //3) si hubieron productos sin stock, devolverlos en un array
+        //devolver productsNoStock
+        //4) una vez finalizada la compra, el carrito asociado al usuario solo debera contener los productos que no pudieron comprarse
+        //descontar del carrito los productos que si se ticketearon
+        for (const product of productsOk) {
+          let deleteProdFromCart = await cartService.deleteProd(
+            cid,
+            product.prodId
+          );
+        }
+        //
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Products situation are:',
+          products: { toBePurchased: productsOk, withNoStock: productsNoStock },
+          ticket: ticketCreated,
+        });
+      }
     } catch (e) {
       throw e;
     }

@@ -53,6 +53,12 @@ entorno.GITHUB_CLIENTID = process.env.GITHUB_CLIENTID;
 entorno.GITHUB_CLIENTSECRET = process.env.GITHUB_CLIENTSECRET;
 entorno.GITHUB_CALLBACKURL = process.env.GITHUB_CALLBACKURL;
 entorno.PERSISTENCE = process.env.PERSISTENCE;
+entorno.GOOGLE_EMAIL = process.env.GOOGLE_EMAIL;
+entorno.GOOGLE_PASS = process.env.GOOGLE_PASS;
+entorno.TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
+entorno.TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
+entorno.TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
+
 /* export default {
   port: process.env.PORT,
   mongoUrl: process.env.MONGO_URL,

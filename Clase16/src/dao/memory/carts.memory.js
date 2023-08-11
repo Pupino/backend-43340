@@ -32,9 +32,11 @@ export default class Carts {
     try {
       const cartsString = await fs.promises.readFile(this.path, 'utf-8');
       let carts = JSON.parse(cartsString); //once file string is retrieved, parse it to obtain the original format
-      const cartFound = this.carts.find((cart) => cart.userid == uid);
+      const cartFound = this.carts.find((cart) => cart.userId == uid);
       console.log('line 55: ' + JSON.stringify(cartFound));
-      return cartFound;
+      let cartArray = [];
+      cartArray.push(cartFound);
+      return cartArray;
     } catch (e) {
       return e;
     }

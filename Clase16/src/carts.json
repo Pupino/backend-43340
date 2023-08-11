@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "userId": "64b7f423ca1f7487754f9586",
+    "productsArray": [
+      { "prodId": "2", "quantity": 10 },
+      { "prodId": "1", "quantity": 5 },
+      { "prodId": "3", "quantity": 2 }
+    ]
+  },
+  { "id": 2, "userId": "64b7f52f758ba53c15de22c1", "productsArray": [] }
+]

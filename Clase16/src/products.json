@@ -1,1 +1,62 @@
-[{"id":2,"title":"Product A","description":"Desc Prod A","code":"UYS","price":"90","stock":"2","category":"RE","status":true},{"id":3,"title":"Product B","description":"Desc Prod B","code":"FSS","price":"830","stock":"8","category":"RT","status":true},{"id":1,"title":"Product Z","description":"Desc Prod Z","code":"BCSS","price":"50000","stock":100,"category":"Fun","status":true},{"id":4,"title":"Product V","description":"Desc Prod V","code":"VALE","price":"90000000","stock":1,"category":"NICE","status":true},{"id":5,"title":"Testing","description":"Test","code":"RWET","price":"19","stock":"2","category":"TTA","status":true},{"id":6,"title":"Tomate","description":"Tomates Desc","code":"TOMAT","price":"20","stock":"5","category":"VERD","status":true}]
+[
+  {
+    "id": 2,
+    "title": "Product A",
+    "description": "Desc Prod A",
+    "code": "UYS",
+    "price": "90",
+    "stock": "2",
+    "category": "RE",
+    "status": true
+  },
+  {
+    "id": 3,
+    "title": "Product B",
+    "description": "Desc Prod B",
+    "code": "FSS",
+    "price": "830",
+    "stock": "8",
+    "category": "RT",
+    "status": true
+  },
+  {
+    "id": 1,
+    "title": "Product Z",
+    "description": "Desc Prod Z",
+    "code": "BCSS",
+    "price": "50000",
+    "stock": 100,
+    "category": "Fun",
+    "status": true
+  },
+  {
+    "id": 4,
+    "title": "Product V",
+    "description": "Desc Prod V",
+    "code": "VALE",
+    "price": "90000000",
+    "stock": 1,
+    "category": "NICE",
+    "status": true
+  },
+  {
+    "id": 5,
+    "title": "Testing",
+    "description": "Test",
+    "code": "RWET",
+    "price": "19",
+    "stock": "2",
+    "category": "TTA",
+    "status": true
+  },
+  {
+    "id": 6,
+    "title": "Tomate",
+    "description": "Tomates Desc",
+    "code": "TOMAT",
+    "price": "20",
+    "stock": "5",
+    "category": "VERD",
+    "status": true
+  }
+]

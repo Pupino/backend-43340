@@ -4,6 +4,7 @@ import { CreationError } from '../errors.js';
 import { productService } from '../services/products.service.js';
 import CartDTO from '../dao/DTO/cart.dto.js';
 import { ticketService } from '../services/tickets.service.js';
+import ProductDTO from '../dao/DTO/product.dto.js';
 
 class CartsController {
   async getAll(req, res) {
@@ -196,6 +197,7 @@ class CartsController {
 
   async purchase(req, res) {
     try {
+      console.log('req: ' + JSON.stringify(req.user));
       const cid = req.params.cid; //tengo el carrito
       //obtener los productos del carrito e ir iterando para chequear el stock consultando el productService
       const productsCart = await cartService.getProductsByCartId(cid);
@@ -257,7 +259,17 @@ class CartsController {
       console.log(`productsNoStock: ${JSON.stringify(productsNoStock)}`);
       //2) generar el ticket de compra con los productos que si se descontaron del stock
       if (productsOk && productsOk.length) {
-        let ticketObj = { amount: totalAmount, purchaser: req.user.email };
+        let purchaser;
+        try {
+          purchaser = req.user.email;
+        } catch (error) {
+          purchaser =
+            'A user on Memory: need to solve how to retrieve since req.user.email is not working...';
+        }
+        let ticketObj = {
+          amount: totalAmount,
+          purchaser,
+        };
         const ticketCreated = await ticketService.createTicket(ticketObj);
         //3) si hubieron productos sin stock, devolverlos en un array
         //devolver productsNoStock
@@ -275,6 +287,14 @@ class CartsController {
           msg: 'Products situation are:',
           products: { toBePurchased: productsOk, withNoStock: productsNoStock },
           ticket: ticketCreated,
+        });
+      } else {
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Products situation are:',
+          products: { toBePurchased: productsOk, withNoStock: productsNoStock },
+          ticket:
+            'No ticket because No Stock available for any Product on Cart',
         });
       }
     } catch (e) {

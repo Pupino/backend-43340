@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "userId": "64d637271092a43ea600259d",
+    "userId": "64d637271092a43ea600259d ",
     "productsArray": [
-      { "prodId": "2", "quantity": 10 },
-      { "prodId": "1", "quantity": 5 },
-      { "prodId": "3", "quantity": 2 }
+      { "prodId": { "_id": "2" }, "quantity": 10 },
+      { "prodId": { "_id": "1" }, "quantity": 5 },
+      { "prodId": { "_id": "3" }, "quantity": 2 }
     ]
   },
   { "id": 2, "userId": "64b7f52f758ba53c15de22c1", "productsArray": [] }

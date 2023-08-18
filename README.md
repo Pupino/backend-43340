@@ -63,7 +63,7 @@ Y por body enviarle el array de productos con sus cantidades, ejemplo:
 En esta instancia contamos con un carrito con productos, y se puede llamar a la api POST:
 http://localhost:8080/api/carts/{cartId}/purchase
 
-## Clase 16
+## Clase 17
 
 Nuevo endpoint:
 http://localhost:8080/api/products/mockingproducts

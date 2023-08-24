@@ -67,3 +67,9 @@ http://localhost:8080/api/carts/{cartId}/purchase
 
 Nuevo endpoint:
 http://localhost:8080/api/products/mockingproducts
+
+
+## Clase 18
+
+Nuevo endpoint:
+http://localhost:8080/loggerTest

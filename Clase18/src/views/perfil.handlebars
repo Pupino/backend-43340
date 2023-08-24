@@ -1,0 +1,16 @@
+<h1>Perfil</h1>
+
+Email:
+{{user.email}}
+<br />
+User Role:
+{{#if user.isAdmin}}
+    <div>ADMIN</div>
+{{else}}
+    <div>USER</div>
+{{/if}}
+<br />
+<a href='/api/auth/administracion'>Ver datos super secretos<a>
+
+<br />
+<a href='/api/auth/logout'>Salir!</a>

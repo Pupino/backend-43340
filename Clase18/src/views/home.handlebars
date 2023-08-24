@@ -1,0 +1,32 @@
+<div>
+    <strong>Products</strong>
+    <ol class="alternating-colors">
+        {{#each payload}}
+            <li>
+                <strong>{{this.title}}</strong>
+                <p>_id: {{this.id}}</p>
+                <p>{{this.description}}</p>
+                <p>Code: {{this.code}}</p>
+                <p>Price: {{this.price}}</p>
+                <p>Stock: {{this.stock}}</p>
+            </li>
+        {{/each}}
+    </ol>
+    <span>totalDocs: {{totalDocs}} | </span>
+    <span>limit: {{limit}} | </span>
+    <span>totalPages: {{totalPages}} | </span>
+    <span>pagingCounter: {{pagingCounter}} | </span>
+    <span>page: {{page}} | </span>
+    <span>hasPrevPage: {{hasPrevPage}} | </span>
+    <span>hasNextPage: {{hasNextPage}} | </span>
+    <span>prevPage: {{prevPage}} | </span>
+    <span>nextPage: {{nextPage}}</span>
+    <p>
+    {{#if hasPrevPage}}
+        <a href='http://localhost:8080/api/products?page={{prevPage}}'>Prev Page</a>
+    {{/if}}
+    {{#if hasNextPage}}
+        <a href='http://localhost:8080/api/products?page={{nextPage}}'>Next Page</a>
+    {{/if}}
+    </p>
+</div>

@@ -1,0 +1,51 @@
+[
+  {
+    "_id": "64d513b54bd1208a531da698",
+    "email": "email@email.com",
+    "password": "$2b$10$8/MoBXbQhae9/Q.Rv4ETC.vRHbUblECd93fTYklSybw8qv7zsh2ku",
+    "firstName": "Sam",
+    "lastName": "Smith",
+    "age": 40,
+    "isAdmin": false,
+    "__v": 0
+  },
+  {
+    "_id": "64b7f52f758ba53c15de22c1",
+    "email": "grisa@mail.com",
+    "password": "$2b$10$5UuChFm694UhkAbLKgHq2O3kE8ekSJBLCNKMty0GjIUtJefHKDfPK",
+    "firstName": "Grichu",
+    "lastName": "Jalon",
+    "age": 13,
+    "isAdmin": false,
+    "__v": 0
+  },
+  {
+    "_id": "64b7fd7e7bb0a396e9222ce1",
+    "email": "chiquitin@mail",
+    "password": "$2b$10$tSWg.0ekYlIJsMbytKZWGO0Rnc.zxex9WNHrAu8hJUdIDPDXEjsgu",
+    "firstName": "Chiquitin",
+    "lastName": "Jalon",
+    "age": 10,
+    "isAdmin": false,
+    "__v": 0
+  },
+  {
+    "_id": "64b8078f5a969e58c99cab2d",
+    "email": "damu@mail.com",
+    "password": "$2b$10$mtlNj39HXWD/HWtrJBTLK.1DpGAAJBSqgMrsJL1aV0ikXQ4hrsbHu",
+    "firstName": "Damian",
+    "lastName": "Zicca",
+    "age": 41,
+    "isAdmin": false,
+    "__v": 0
+  },
+  {
+    "_id": "64b80809779ceabe77f5fd65",
+    "email": "romina.jalon@gmail.com",
+    "password": "nopass",
+    "firstName": "Romina Jalón",
+    "lastName": "nolast",
+    "isAdmin": false,
+    "__v": 0
+  }
+]

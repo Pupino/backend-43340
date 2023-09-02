@@ -73,3 +73,13 @@ http://localhost:8080/api/products/mockingproducts
 
 Nuevo endpoint:
 http://localhost:8080/loggerTest
+
+
+## Clase 19
+
+Nuevo endpoint:
+http://localhost:8080/api/recovers/email
+
+Se agregó la funcionalidad Premium y Owner
+
+

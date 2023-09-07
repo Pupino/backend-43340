@@ -82,4 +82,10 @@ http://localhost:8080/api/recovers/email
 
 Se agregó la funcionalidad Premium y Owner
 
+## Clase 20
+
+Nuevo endpoint:
+http://localhost:8080/apidocs/
+
+Se generó la documentación para las apis de Carts y Products que no tienen middlewares
 

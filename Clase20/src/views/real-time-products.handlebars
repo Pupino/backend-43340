@@ -1,0 +1,39 @@
+<div>
+    <strong>Create Product</strong>
+    <form id="product-creation">
+        <label for="ftitle">Title:</label><br>
+        <input type="text" id="ftitle" name="ftitle" value=""><br>
+        <label for="fdesc">Description:</label><br>
+        <input type="text" id="fdesc" name="fdesc" value=""><br>
+        <label for="fcode">Code:</label><br>
+        <input type="text" id="fcode" name="fcode" value=""><br>
+        <label for="fprice">Price:</label><br>
+        <input type="text" id="fprice" name="fprice" value=""><br>
+        <label for="fstock">Stock:</label><br>
+        <input type="text" id="fstock" name="fstock" value=""><br>
+        <label for="fcategory">Category:</label><br>
+        <input type="text" id="fcategory" name="fcategory" value=""><br><br>
+        <input type="submit" value="Create">
+    </form>
+    <div id="error-msg"></div>
+    <div id="success-msg"></div>
+</div>
+<div>
+    <strong>Products</strong>
+    <div id="prod-deleted-msg"></div>
+    <ol class="alternating-colors">
+        {{#each products}}
+        <li>
+            <strong>{{this.title}}</strong>[id: {{this.id}}]
+            <p>{{this.description}}</p>
+            <p>Code: {{this.code}}</p>
+            <p>Price: {{this.price}}</p>
+            <p>Stock: {{this.stock}}</p>
+            <p>Category: {{this.category}}</p>
+            <button class="delete-prod" id={{this.id}}>Delete</button>
+        </li>
+        {{/each}}
+    </ol>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProduct-socket.js"></script>

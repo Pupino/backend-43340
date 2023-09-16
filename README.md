@@ -89,3 +89,12 @@ http://localhost:8080/apidocs/
 
 Se generó la documentación para las apis de Carts y Products que no tienen middlewares
 
+## Clase 21
+
+Testing bajo estos comandos luego de levantar la app:
+
+npm run authtestchai
+npm run productstestchai
+npm run cartstestchai
+
+

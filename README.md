@@ -97,4 +97,11 @@ npm run authtestchai
 npm run productstestchai
 npm run cartstestchai
 
+## Clase 23
+
+Nuevo PUT endpoint:
+http://localhost:8080/api/users/premium/:uid
+
+De momento está abierto el endpoint, pero se lo configurará para que sólo los usuarios Admin puedan ejecutarlo.
+Resta implementar la subida de documentos 
 

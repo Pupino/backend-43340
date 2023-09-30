@@ -1,0 +1,224 @@
+paths:
+  /api/products/{pid}:
+    put:
+      summary: Update an specific product id
+      security:
+        - cookieAuth: []
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: product ID to be updated
+          schema:
+            $type: String
+      requestBody:
+        description: Product details should be indicated on Body
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    code:
+                      type: string
+                    price:
+                      type: integer
+                    stock:
+                      type: integer
+                    category:
+                      type: string
+              example:
+                product:
+                  title: Product A
+                  description: Lorem Ipsum desc
+                  code: AC
+                  price": 34999
+                  stock": 20
+                  category": CA
+      responses:
+        '200':
+          description: The product was succesfully updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/ProdUpdated'
+        '400':
+          description: Error usually when there are no user logged in as Admin or Owner role
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProdError'
+    delete:
+      summary: Delete an specific product id
+      security:
+        - cookieAuth: []
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: product ID to be updated
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: The product was succesfully deleted
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/ProdDeleted'
+        '400':
+          description: Error usually when there are no user logged in as Admin or Owner role
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProdError'
+  /api/products/mockingproducts:
+    get:
+      summary: Generate faker products
+      tags:
+        - Products
+      responses:
+        '200':
+          description: The mocking json products response was ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Product'
+        '400':
+          description: Error usually when there are no user logged in as Admin or Owner role
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProdError'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        code:
+          type: string
+        price:
+          type: integer
+        stock:
+          type: integer
+        category:
+          type: string
+        status:
+          type: boolean
+      example:
+        _id: d2a8c4e9c53430954b0ebd80
+        title: Luxurious Bronze Gloves
+        description: Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals
+        code: saepe
+        price: 759.00
+        stock: 83
+        category: Games
+        status: true
+    ProdUpdated:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+            modifiedCount:
+              type: integer
+            upsertedId:
+              type: string
+              nullable: true
+            upsertedCount:
+              type: integer
+            matchedCount:
+              type: integer
+      example:
+        status: success
+        msg: product updated!
+        data:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: nullable
+          upsertedCount: 0
+          matchedCount: 1
+    ProdDeleted:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+            deletedCount:
+              type: integer
+      example:
+        status: success
+        msg: product deleted!
+        data:
+          acknowledged: true
+          deletedCount: 1
+    ProdError:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+        cause:
+          type: string
+        errorBackend:
+          type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: integer
+      example:
+        status: error
+        error: xxxxx product xxxxxx error
+        cause: Contact Development team
+        errorBackend:
+          name": xxxxx product xxxxx error
+          code: 11
+  # 1) Define the cookie name
+  # Note for Swagger UI and Swagger Editor users: Cookie authentication is currently not supported for "try it out" requests due to browser security restrictions. See this issue for more information. SwaggerHub does not have this limitation.
+  securitySchemes:
+    cookieAuth: # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: connect.sid # cookie name

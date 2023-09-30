@@ -313,8 +313,8 @@ components:
       items:
         $ref: '#/components/schemas/Cart'
       example:
-        - userId: 64d513b54bd1208a531da698
-          id: 64d571eedf1a790fa8f5be5d
+        - id: 64d571eedf1a790fa8f5be5d
+          userId: 64d513b54bd1208a531da698
           productsArray:
             - prodId:
                 owner: admin

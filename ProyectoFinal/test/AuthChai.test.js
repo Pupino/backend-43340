@@ -7,7 +7,7 @@ const expect = chai.expect;
 const requester = supertest('http://localhost:8080');
 
 await mongoose.connect(
-  'mongodb+srv://rominajalon:ForhO1BiAqRF1ujv@cluster0.rpahgl8.mongodb.net/pet?retryWrites=true&w=majority'
+  ''
 );
 
 describe('Testing Auth Register, Auth Login and Current Session', () => {

@@ -1,0 +1,551 @@
+paths:
+  /api/carts:
+    get:
+      summary: Retrieve all the carts
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Cart List Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/ListCarts'
+        '400':
+          description: Error usually when there are no user logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+    post:
+      summary: Create an Empty Cart for the logged user. A User must be connected because api needs Cookie connect.sid value. Note for Swagger UI and Swagger Editor users --> Cookie authentication is currently not supported for "try it out" requests due to browser security restrictions. See this issue for more information. SwaggerHub does not have this limitation (https://swagger.io/docs/specification/authentication/cookie-authentication/?sbsearch=Cookie%20Authentication)
+      security:
+        - cookieAuth: []
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Cart List Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/CartCreated'
+        '400':
+          description: Error usually when there are no user logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+  /api/carts/{cid}:
+    get:
+      summary: Get an specific cart by id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cart ID to be search
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: Cart found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '400':
+          description: Error usually when there are no user logged in or wrong cart id
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+    delete:
+      summary: Delete all Products from specific cart id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cart ID to be search
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: Cart found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/AllProdsDelCart'
+        '400':
+          description: Error usually when there are no user logged in or wrong cart id
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+  /api/carts/{cid}/products/{pid}:
+    put:
+      summary: Update the quantity on the indicated product id inside an specific cart id. Quantity is sent on body.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cart ID to be updated
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: product ID to be updated
+          schema:
+            $type: String
+      requestBody:
+        description: Quantity of Product should be indicated on Body
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: product quatity to be updated
+              example:
+                quantity: 5
+      responses:
+        '200':
+          description: Product quantity updated on cart
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProdQtyCart'
+        '400':
+          description: Error usually when some parameter is missed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+    delete:
+      summary: Removes the indicated product id from specific cart id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cart ID to be updated
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: product ID to be updated
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: Product quantity updated on cart
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/ProdDelCart'
+        '400':
+          description: Error usually when some parameter is missed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+  /{cid}/purchase:
+    post:
+      summary: To purchase products on specific cart id
+      security:
+        - cookieAuth: []
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cart ID to be purchased
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: Cart Purchased Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/CartPurchased'
+        '400':
+          description: Error usually when there are no user logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/CartError'
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        status:
+          type: string
+          description: success or error
+        message:
+          type: string
+          description: aclarando que ocurrio
+      example:
+        status: success
+        message: User updated
+    CartError:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+        cause:
+          type: string
+        errorBackend:
+          type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: integer
+      example:
+        status: error
+        error: xxxxx cart xxxxxx error
+        cause: Contact Development team
+        errorBackend:
+          name": xxxxx cart xxxxx error
+          code: 11
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Cart ID auto generated by mongo
+        userId:
+          type: string
+          description: User ID related to Cart
+        productsArray:
+          type: array
+          description: Array of Products
+          items:
+            type: object
+            properties:
+              prodId:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  title:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  description:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  code:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  price:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  stock:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  category:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  status:
+                    type: string
+                    description: Product ID auto generated by mongo
+                  owner:
+                    type: string
+                    description: User who creates the product. By default ADMIN.
+                  __v:
+                    type: integer
+                    description: Document version generated by Mongo.
+              quantity:
+                type: integer
+                description: Product quantity
+              _id:
+                type: string
+                description: Product ID auto generated by mongo
+      example:
+        id: 64d571eedf1a790fa8f5be5d
+        userId: 64d513b54bd1208a531da698
+        productsArray:
+          - prodId:
+              _id: 648bae59b7b670f1a3a09661
+              title: Product J
+              description: Desc Prod J
+              code: JJL
+              price: 43
+              stock: 0
+              category: KLA
+              status: true
+              owner: admin
+              __v: 0
+            quantity: 10
+            _id: 64d572b3df1a790fa8f5be64
+          - prodId:
+              _id: 648e28db81adab7472707ad4
+              title: Product T
+              description: Desc Prod T
+              code: grs50
+              price: 900
+              stock: 14
+              category: QQ
+              status: true
+              owner: admin
+              __v: 0
+            quantity: 2000
+            _id: 64d572b3df1a790fa8f5be66
+    ListCarts:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cart'
+      example:
+        status: 'success'
+        msg: 'carts list'
+        data:
+          - userId: 64d513b54bd1208a531da698
+            id: 64d571eedf1a790fa8f5be5d
+            productsArray:
+              - prodId:
+                  _id: 648bae59b7b670f1a3a09661
+                  title: Product J
+                  description: Desc Prod J
+                  code: JJL
+                  price: 43
+                  stock: 0
+                  category: KLA
+                  status: true
+                  owner: admin
+                  __v: 0
+                quantity: 10
+                _id: 64d572b3df1a790fa8f5be64
+              - prodId:
+                  _id: 648e28db81adab7472707ad4
+                  title: Product T
+                  description: Desc Prod T
+                  code: grs50
+                  price: 900
+                  stock: 14
+                  category: QQ
+                  status: true
+                  owner: admin
+                  __v: 0
+                quantity: 2000
+                _id: 64d572b3df1a790fa8f5be66
+          - userId: 64d63592eda44c042a012f83
+            id: 64d63595eda44c042a012f8a
+            productsArray: []
+    CartCreated:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            userId:
+              type: string
+            id:
+              type: string
+            productsArray:
+              type: array
+      example:
+        status: success
+        msg: cart created
+        data:
+          userId: 64f33e904a8b2ad84e73b714
+          id: 64f33e934a8b2ad84e73b71b
+          productsArray: []
+    ProdQtyCart:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+            modifiedCount:
+              type: integer
+            upsertedId:
+              type: string
+              nullable: true
+            upsertedCount:
+              type: integer
+            matchedCount:
+              type: integer
+      example:
+        status: success
+        msg: product updated on cart
+        data:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: nullable
+          upsertedCount: 0
+          matchedCount: 1
+    ProdDelCart:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+            modifiedCount:
+              type: integer
+            upsertedId:
+              type: string
+              nullable: true
+            upsertedCount:
+              type: integer
+            matchedCount:
+              type: integer
+      example:
+        status: success
+        msg: product deleted from cart
+        data:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: nullable
+          upsertedCount: 0
+          matchedCount: 1
+    AllProdsDelCart:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+          properties:
+            acknowledged:
+              type: boolean
+            modifiedCount:
+              type: integer
+            upsertedId:
+              type: string
+              nullable: true
+            upsertedCount:
+              type: integer
+            matchedCount:
+              type: integer
+      example:
+        status: success
+        msg: product deleted from cart
+        data:
+          acknowledged: true
+          modifiedCount: 1
+          upsertedId: nullable
+          upsertedCount: 0
+          matchedCount: 1
+    CartPurchased:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        products:
+          type: object
+          properties:
+            toBePurchased:
+              type: array
+              items:
+                type: object
+                properties:
+                  prodId:
+                    type: string
+                  quantity:
+                    type: integer
+                  unitPrice:
+                    type: integer
+                  totalPrice:
+                    type: integer
+            withNoStock:
+              type: array
+              items:
+                type: object
+                properties:
+                  prodId:
+                    type: string
+                  quantity:
+                    type: integer
+                  actualStock:
+                    type: integer
+        ticket:
+          type: object
+          properties:
+            amount:
+              type: integer
+            purchaser:
+              type: string
+            _id:
+              type: string
+            code:
+              type: string
+            purchase_datetime:
+              type: string
+            __v:
+              type: integer
+      example:
+        status: success
+        msg: Products situation are
+        products:
+          toBePurchased:
+            prodId: 648bae59b7b670f1a3a09661
+            quantity: 5
+            unitPrice: 2150
+            totalPrice: 10750
+          withNoStock:
+            prodId: 648e28db81adab7472707ad4
+            quantity: 2000
+            actualStock: 14
+        ticket:
+          amount: 10750
+          purchaser: romina.jalon@gmail.com
+          _id: 64f9398dec0e3998823291c9
+          code: cmc771
+          purchase_datetime: 2023-09-07T02:46:37.094Z
+          __v: 0
+  # 1) Define the cookie name
+  # Note for Swagger UI and Swagger Editor users: Cookie authentication is currently not supported for "try it out" requests due to browser security restrictions. See this issue for more information. SwaggerHub does not have this limitation.
+  securitySchemes:
+    cookieAuth: # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: connect.sid # cookie name

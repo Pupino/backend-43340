@@ -1,0 +1,11 @@
+<div><strong>PROFILE</strong><a href='/logout' style="float: right;">LOGOUT</a></div>
+{{#if admin}}
+    <div>Rol: ADMIN</div>
+{{else}}
+    <div>Rol: USER</div>
+{{/if}}
+<div>First Name: {{profile.firstName}}</div>
+<div>Last Name: {{profile.lastName}}</div>
+<div>Email: {{profile.email}}</div>
+
+

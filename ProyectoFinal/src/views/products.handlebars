@@ -1,0 +1,74 @@
+<div id="modal-overlay" class="modal-overlay">
+    <div id="spinner" class="spinner"></div>
+</div>
+<div><strong>WELCOME!</strong><a href='/logout' style="float: right;">LOGOUT</a></div>
+{{#if profile.isAdmin}}
+    <div>Rol: ADMIN</div>
+{{else}}
+    {{#if profile.isPremium}}
+        <div>Rol: PREMIUM</div>
+    {{else}}
+        <div>Rol: USER</div>
+    {{/if}}
+{{/if}}
+<div>First Name: {{profile.firstName}}</div>
+<div>Last Name: {{profile.lastName}}</div>
+<div>Email: {{profile.email}}</div>
+<br>
+<p><button id="cartBtn">CART</button></p>
+{{#if profile.isAdmin }}
+    <p><a href='/api/products/create' style="float: right;">CREATE PRODUCT</a></p>
+{{else}}
+    {{#if profile.isPremium }}
+        <p><a href='/api/products/create' style="float: right;">CREATE PRODUCT</a></p>
+    {{/if}}
+{{/if}}
+{{#if profile.isAdmin}}
+<p><a href='/api/users' style="float: right;">MANAGE USERS</a></p>
+{{/if}}
+<div>
+    <strong>Products</strong>
+    <ol class="alternating-colors">
+        {{#each payload}}
+            <li>
+                <strong>{{this.title}}</strong>
+                <p>id: {{this.id}}</p>
+                <p>{{this.description}}</p>
+                <p>Code: {{this.code}}</p>
+                <p>Price: {{this.price}}</p>
+                <p>Stock: {{this.stock}}</p>
+                <button id="{{this.id}}" class="addCartBtn">Add to Cart</button>
+                {{#if ../profile.isAdmin}}
+                    <p class="prodOwner">
+                    <button id="{{this.id}}" class="deleteBtn">DELETE Product</button>
+                    Product Owner: {{this.owner}}</p>
+                {{else}}
+                    {{#if ../profile.isPremium}}
+                        <p class="prodOwner">
+                        <button id="{{this.id}}" class="deleteBtn">DELETE Product</button>
+                        Product Owner: {{this.owner}}</p>
+                    {{/if}}
+                {{/if}}
+                <br>
+            </li>
+        {{/each}}
+    </ol>
+    <p>
+    {{#if hasPrevPage}}
+        <a href='/api/products?page={{prevPage}}'>Prev Page</a>
+    {{/if}}
+    {{#if pagingCounter}}
+        pagingCounter: {{pagingCounter}}
+    {{/if}}
+    {{#if totalDocs}}
+        totalDocs: {{totalDocs}}
+    {{/if}}
+    {{#if totalPages}}
+        totalPages: {{totalPages}}
+    {{/if}}
+    {{#if hasNextPage}}
+        <a href='/api/products?page={{nextPage}}'>Next Page</a>
+    {{/if}}
+    </p>
+</div>
+<script src="../js/products.js"></script>

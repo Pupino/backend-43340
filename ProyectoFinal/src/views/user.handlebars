@@ -1,0 +1,11 @@
+<div><a href='/api/users' style="float: right;">GO BACK</a>
+    <strong>{{payload.email}}</strong>
+    <p>Name: {{payload.firstName}}</p>
+    <p>Last Name: {{payload.lastName}}</p>
+    <p>Admin: {{payload.isAdmin}}</p>
+    <p>Premium: {{payload.isPremium}}</p>
+    <p>Last Connection: {{payload.lastConnection}}</p>
+    <button id="{{payload.id}}" class="switchBtn">SWITCH PREMIUM</button>
+    <button id="{{payload.id}}" class="deleteBtn">DELETE</button>
+</div>
+<script src="../../js/users.js"></script>

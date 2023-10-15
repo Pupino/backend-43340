@@ -1,0 +1,19 @@
+<div>
+    <strong>Users</strong><a href='/api/products' style="float: right;">GO BACK</a>
+    <ol class="alternating-colors">
+         {{log this}}
+        {{#each payload}}
+            <li>
+                <strong>{{this.email}}</strong>
+                <p>Name: {{this.firstName}}</p>
+                <p>Last Name: {{this.lastName}}</p>
+                <p>Admin: {{this.isAdmin}}</p>
+                <p>Premium: {{this.isPremium}}</p>
+                <p>Last Connection: {{this.lastConnection}}</p>
+                {{!-- <a href="/api/users/{{this.id}}">Edit</a> --}}
+                <button id="{{this.id}}" class="userBtn">EDIT</button>
+            </li>
+        {{/each}}
+    </ol>
+</div>
+<script src="../js/users.js"></script>

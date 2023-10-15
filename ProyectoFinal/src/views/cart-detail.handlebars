@@ -1,0 +1,22 @@
+<div id="modal-overlay" class="modal-overlay">
+    <div id="spinner" class="spinner"></div>
+</div>
+<div>
+    <strong>Cart</strong><a href='/api/products' style="float: right;">GO BACK</a>
+    <pre id="purchaseOutput"></pre>
+    <div id="cartInfo">
+        <p><button id="{{cartId}}" class="purchaseBtn" >PURCHASE</button></p>
+        <p><button id="{{cartId}}" class="clearBtn">CLEAN CART</button></p>
+        <ol class="alternating-colors">
+            {{#each payload}}
+                <li>
+                    <strong>{{this.title}}</strong>
+                    <p>id: {{this.id}}</p>
+                    <p>Price: {{this.price}}</p>
+                    <p>Quantity: {{this.quantity}}</p>
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+<script src="../../js/carts.js"></script>

@@ -1,0 +1,7 @@
+<div>Enter your new password</div>
+<form action='/api/recovers/recover-pass' method='POST'>
+  <input id='password' name='password' type='password' placeholder='Enter your password' />
+  <input id='email' name='email' type='hidden' placeholder='Email' value="{{email}}"/>
+  <input id='code' name='code' type='hidden' placeholder='Code' value="{{code}}"/>
+  <input type='submit' value='Recover' />
+</form>
